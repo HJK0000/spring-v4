@@ -24,6 +24,7 @@ public class JwtUtil {
     // JWT에 서 ID를 꺼내서
     // USER 객체를 만들어서 RETURN
     public static User verify(String jwt){
+        jwt = jwt.replace("Bearer ", ""); // 통신으로 들어온거 앞에 Bearer 을 제거하고 검증해야 해서 떼준다.
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("metacoding")).build().verify(jwt);
         int id = decodedJWT.getClaim("id").asInt();
         String username = decodedJWT.getClaim("username").asString();
